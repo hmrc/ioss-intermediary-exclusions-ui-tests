@@ -25,7 +25,7 @@ object Exclusions extends BasePage {
     TestEnvironment.url("ioss-intermediary-exclusions-frontend")
 
   private val journeyUrl: String = "/pay-clients-vat-on-eu-sales/leave-import-one-stop-shop-intermediary"
-  
+
   def goToExclusionsJourney(): Unit =
     get(exclusionsUrl + journeyUrl)
 
