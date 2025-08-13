@@ -1,4 +1,5 @@
 lazy val root = (project in file("."))
+  .disablePlugins(JUnitXmlReportPlugin) // Required to prevent https://github.com/scalatest/scalatest/issues/1427
   .settings(
     name := "ioss-intermediary-exclusions-ui-tests",
     version := "0.1.0",
