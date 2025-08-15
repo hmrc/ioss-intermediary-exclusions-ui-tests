@@ -17,5 +17,11 @@
 package uk.gov.hmrc.ui.pages
 
 import uk.gov.hmrc.selenium.component.PageObject
+import org.openqa.selenium.By
 
-trait BasePage extends PageObject {}
+trait BasePage extends PageObject {
+
+  protected val continueButton: By = By.id("continue")
+  protected val submitButton: By   = By.id("submit")
+
+}
