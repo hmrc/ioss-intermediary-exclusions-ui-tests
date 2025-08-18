@@ -96,4 +96,7 @@ object Exclusions extends BasePage {
     val h1 = Driver.instance.findElement(By.tagName("h1")).getText
     Assert.assertTrue(h1.equals("Sorry, there is a problem with the service"))
   }
+
+  def selectChangeLink(link: String): Unit =
+    click(By.cssSelector(s"a[href*=$link]"))
 }
