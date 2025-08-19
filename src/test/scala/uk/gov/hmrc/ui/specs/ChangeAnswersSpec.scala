@@ -193,5 +193,87 @@ class ChangeAnswersSpec extends BaseSpec {
       Then("the intermediary is on the exclusions-request-received page")
       exclusions.checkJourneyUrl("exclusions-request-received")
     }
+
+    Scenario("Intermediary changes date for voluntarily leaving the service journey") {
+
+      Given("the intermediary accesses the IOSS Intermediary Exclusions Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard(true, true, "standard")
+      exclusions.goToExclusionsJourney()
+
+      When("the intermediary answers no on the exclusions-moved-to-a-different-country page")
+      exclusions.checkJourneyUrl("exclusions-moved-to-a-different-country")
+      exclusions.answerRadioButton("no")
+
+      When("the intermediary answers yes on the exclusions-leave-scheme page")
+      exclusions.checkJourneyUrl("exclusions-leave-scheme")
+      exclusions.answerRadioButton("yes")
+
+      And("the intermediary enters today on the exclusions-stopped-using-service-date page")
+      exclusions.checkJourneyUrl("exclusions-stopped-using-service-date")
+      exclusions.enterDate("today")
+
+      And("the trader clicks change on the check-your-answers page for exclusions-stopped-using-service-date")
+      exclusions.checkJourneyUrl("check-your-answers")
+      exclusions.selectChangeLink("exclusions-stopped-using-service-date\\?waypoints\\=check-your-answers")
+
+      And("the trader amends the move date to mid-month")
+      exclusions.checkJourneyUrl("exclusions-stopped-using-service-date?waypoints=check-your-answers")
+      exclusions.enterDate("mid-month")
+
+      When("the intermediary submits their exclusion")
+      exclusions.checkJourneyUrl("check-your-answers")
+      exclusions.submitExclusion()
+
+      Then("the intermediary is on the exclusions-request-received page")
+      exclusions.checkJourneyUrl("exclusions-request-received")
+    }
+
+    Scenario("Intermediary changes from voluntarily leaving the service to moving country journey") {
+
+      Given("the intermediary accesses the IOSS Intermediary Exclusions Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard(true, true, "standard")
+      exclusions.goToExclusionsJourney()
+
+      When("the intermediary answers no on the exclusions-moved-to-a-different-country page")
+      exclusions.checkJourneyUrl("exclusions-moved-to-a-different-country")
+      exclusions.answerRadioButton("no")
+
+      When("the intermediary answers yes on the exclusions-leave-scheme page")
+      exclusions.checkJourneyUrl("exclusions-leave-scheme")
+      exclusions.answerRadioButton("yes")
+
+      And("the intermediary enters today on the exclusions-stopped-using-service-date page")
+      exclusions.checkJourneyUrl("exclusions-stopped-using-service-date")
+      exclusions.enterDate("today")
+
+      And("the trader clicks change on the check-your-answers page for exclusions-moved-to-a-different-country")
+      exclusions.checkJourneyUrl("check-your-answers")
+      exclusions.selectChangeLink("exclusions-moved-to-a-different-country\\?waypoints\\=check-your-answers")
+
+      And("the trader changes answer to yes on exclusions-moved-to-a-different-country page")
+      exclusions.checkJourneyUrl("exclusions-moved-to-a-different-country?waypoints=check-your-answers")
+      exclusions.answerRadioButton("yes")
+
+      Then("the intermediary selects Spain on the exclusions-which-eu-country page")
+      exclusions.checkJourneyUrl("exclusions-which-eu-country?waypoints=check-your-answers")
+      exclusions.selectCountry("Spain")
+
+      And("the intermediary enters today on the exclusions-move-date page")
+      exclusions.checkJourneyUrl("exclusions-move-date?waypoints=check-your-answers")
+      exclusions.enterDate("today")
+
+      And("the intermediary enters a VAT number on the exclusions-tax-number page")
+      exclusions.checkJourneyUrl("exclusions-tax-number?waypoints=check-your-answers")
+      exclusions.enterAnswer("ESX1234567X")
+
+      When("the intermediary submits their exclusion")
+      exclusions.checkJourneyUrl("check-your-answers")
+      exclusions.submitExclusion()
+
+      Then("the intermediary is on the exclusions-request-received page")
+      exclusions.checkJourneyUrl("exclusions-request-received")
+    }
   }
 }
