@@ -38,7 +38,6 @@ class ExclusionsSpec extends BaseSpec {
 
       Then("the intermediary selects Belgium on the exclusions-which-eu-country page")
       exclusions.checkJourneyUrl("exclusions-which-eu-country")
-      exclusions.clearCountry()
       exclusions.selectCountry("Belgium")
 
       And("the intermediary enters today on the exclusions-move-date page")
@@ -47,7 +46,7 @@ class ExclusionsSpec extends BaseSpec {
 
       And("the intermediary enters a VAT number on the exclusions-tax-number page")
       exclusions.checkJourneyUrl("exclusions-tax-number")
-      exclusions.enterAnswer("BG123456789")
+      exclusions.enterAnswer("BE0123456789")
 
       When("the intermediary submits their exclusion")
       exclusions.checkJourneyUrl("check-your-answers")
