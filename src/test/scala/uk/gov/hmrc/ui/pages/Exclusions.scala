@@ -38,6 +38,9 @@ object Exclusions extends BasePage {
   def checkJourneyUrl(page: String): Unit =
     getCurrentUrl should startWith(s"$exclusionsUrl$journeyUrl/$page")
 
+  def goToPage(page: String): Unit =
+    get(s"$exclusionsUrl$journeyUrl/$page")
+
   def answerRadioButton(answer: String): Unit = {
 
     answer match {
