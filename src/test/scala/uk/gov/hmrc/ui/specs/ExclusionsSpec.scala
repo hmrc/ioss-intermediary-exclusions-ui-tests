@@ -82,5 +82,16 @@ class ExclusionsSpec extends BaseSpec {
       Then("the intermediary is on the exclusions-request-received page")
       exclusions.checkJourneyUrl("exclusions-request-received")
     }
+
+    Scenario("Intermediary with an exclusion that has been reversed can access the exclusions journey") {
+
+      Given("the intermediary accesses the IOSS Intermediary Exclusions Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard(true, true, "reversal")
+      exclusions.goToExclusionsJourney()
+
+      When("the intermediary answers yes on the exclusions-moved-to-a-different-country page")
+      exclusions.checkJourneyUrl("exclusions-moved-to-a-different-country")
+    }
   }
 }

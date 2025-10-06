@@ -47,5 +47,32 @@ class KickoutSpec extends BaseSpec {
       exclusions.checkProblemPage()
     }
 
+    Scenario(
+      "Cannot access the Intermediary Exclusions journey when already excluded and exclusion effective date is in the past"
+    ) {
+
+      Given("a user who is not registered on the Intermediary service accesses the IOSS Exclusions Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard(true, true, "alreadyExcludedPast")
+
+      Then("the intermediary is on the no-access-excluded page")
+      exclusions.checkJourneyUrl("no-access-excluded")
+    }
+
+    Scenario(
+      "Can only access the cancel request to leave page and not the main Intermediary Exclusions journey when already excluded and exclusion effective date is in the future"
+    ) {
+
+      Given("a user who is not registered on the Intermediary service accesses the IOSS Exclusions Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard(true, true, "alreadyExcludedFuture")
+
+      Then("the intermediary is on the no-access-excluded page")
+      exclusions.checkJourneyUrl("no-access-excluded")
+
+      And("the intermediary can access the cancel-leave-scheme page")
+      exclusions.goToPage("cancel-leave-scheme")
+      exclusions.checkJourneyUrl("cancel-leave-scheme")
+    }
   }
 }

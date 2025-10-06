@@ -40,6 +40,9 @@ object Exclusions extends BasePage {
     fluentWait.until(ExpectedConditions.urlContains(url))
     getCurrentUrl should startWith(url)
 
+  def goToPage(page: String): Unit =
+    get(s"$exclusionsUrl$journeyUrl/$page")
+
   def answerRadioButton(answer: String): Unit = {
 
     answer match {
