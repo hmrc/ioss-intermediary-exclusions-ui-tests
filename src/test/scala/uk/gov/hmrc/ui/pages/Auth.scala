@@ -17,6 +17,7 @@
 package uk.gov.hmrc.ui.pages
 
 import org.openqa.selenium.By
+import org.openqa.selenium.support.ui.ExpectedConditions
 import org.scalatest.matchers.should.Matchers.*
 import uk.gov.hmrc.configuration.TestEnvironment
 
@@ -29,6 +30,7 @@ object Auth extends BasePage {
 
   def goToAuthorityWizard(): Unit =
     get(authUrl)
+    fluentWait.until(ExpectedConditions.urlContains(authUrl))
 
   def loginUsingAuthorityWizard(withIntEnrolment: Boolean, withVatEnrolment: Boolean, vrnType: String): Unit = {
 

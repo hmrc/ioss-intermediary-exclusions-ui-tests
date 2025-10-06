@@ -36,7 +36,9 @@ object Exclusions extends BasePage {
     get(exclusionsUrl + journeyUrl)
 
   def checkJourneyUrl(page: String): Unit =
-    getCurrentUrl should startWith(s"$exclusionsUrl$journeyUrl/$page")
+    val url = s"$exclusionsUrl$journeyUrl/$page"
+    fluentWait.until(ExpectedConditions.urlContains(url))
+    getCurrentUrl should startWith(url)
 
   def answerRadioButton(answer: String): Unit = {
 
@@ -93,6 +95,7 @@ object Exclusions extends BasePage {
   }
 
   def checkProblemPage(): Unit = {
+    fluentWait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("h1")))
     val h1 = Driver.instance.findElement(By.tagName("h1")).getText
     Assert.assertTrue(h1.equals("Sorry, there is a problem with the service"))
   }
