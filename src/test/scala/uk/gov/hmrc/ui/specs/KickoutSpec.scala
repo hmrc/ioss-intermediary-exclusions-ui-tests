@@ -74,5 +74,63 @@ class KickoutSpec extends BaseSpec {
       exclusions.goToPage("cancel-leave-scheme")
       exclusions.checkJourneyUrl("cancel-leave-scheme")
     }
+
+    Scenario("Failure to submit exclusion when moving country") {
+
+      Given("the intermediary accesses the IOSS Intermediary Exclusions Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard(true, true, "failure")
+      exclusions.goToExclusionsJourney()
+
+      When("the intermediary answers yes on the exclusions-moved-to-a-different-country page")
+      exclusions.checkJourneyUrl("exclusions-moved-to-a-different-country")
+      exclusions.answerRadioButton("yes")
+
+      Then("the intermediary selects Finland on the exclusions-which-eu-country page")
+      exclusions.checkJourneyUrl("exclusions-which-eu-country")
+      exclusions.selectCountry("Finland")
+
+      And("the intermediary enters today on the exclusions-move-date page")
+      exclusions.checkJourneyUrl("exclusions-move-date")
+      exclusions.enterDate("today")
+
+      And("the intermediary enters a VAT number on the exclusions-tax-number page")
+      exclusions.checkJourneyUrl("exclusions-tax-number")
+      exclusions.enterAnswer("FI12345678")
+
+      When("the intermediary submits their exclusion")
+      exclusions.checkJourneyUrl("check-your-answers")
+      exclusions.submitExclusion()
+
+      Then("the intermediary is on the submission-failure page")
+      exclusions.checkJourneyUrl("submission-failure")
+    }
+
+    Scenario("Failure to submit exclusion when intermediary voluntarily leaves") {
+
+      Given("the intermediary accesses the IOSS Intermediary Exclusions Service")
+      auth.goToAuthorityWizard()
+      auth.loginUsingAuthorityWizard(true, true, "failure")
+      exclusions.goToExclusionsJourney()
+
+      When("the intermediary answers no on the exclusions-moved-to-a-different-country page")
+      exclusions.checkJourneyUrl("exclusions-moved-to-a-different-country")
+      exclusions.answerRadioButton("no")
+
+      When("the intermediary answers yes on the exclusions-leave-scheme page")
+      exclusions.checkJourneyUrl("exclusions-leave-scheme")
+      exclusions.answerRadioButton("yes")
+
+      And("the intermediary enters today on the exclusions-stopped-using-service-date page")
+      exclusions.checkJourneyUrl("exclusions-stopped-using-service-date")
+      exclusions.enterDate("today")
+
+      When("the intermediary submits their exclusion")
+      exclusions.checkJourneyUrl("check-your-answers")
+      exclusions.submitExclusion()
+
+      Then("the intermediary is on the submission-failure page")
+      exclusions.checkJourneyUrl("submission-failure")
+    }
   }
 }

@@ -54,6 +54,8 @@ object Auth extends BasePage {
         sendKeys(By.id("input-1-0-value"), "IN9003232323")
       } else if (vrnType == "reversal") {
         sendKeys(By.id("input-1-0-value"), "IN9003233333")
+      } else if (vrnType == "failure") {
+        sendKeys(By.id("input-1-0-value"), "IN9009999966")
       } else {
         sendKeys(By.id("input-1-0-value"), "IN9001234567")
       }
