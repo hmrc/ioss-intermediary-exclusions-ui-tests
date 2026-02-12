@@ -1,0 +1,12 @@
+{
+  "add":[
+    {
+      "reason":"No PII on this page",
+      "contextId":1,
+      "url":"http://localhost:10177/pay-clients-vat-on-eu-sales/leave-import-one-stop-shop-intermediary/exclusions-moved-to-a-different-country",
+      "ruleId":10062,
+      "newLevel":-1
+    }
+
+  ]
+}
